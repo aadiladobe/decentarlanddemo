@@ -1,0 +1,11 @@
+package-lock.json
+npm-debug.log
+node_modules
+/node_modules
+.DS_Store
+/*.env
+bin
+*.swp
+*.*~
+export
+
