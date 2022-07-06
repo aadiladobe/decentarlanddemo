@@ -140,7 +140,7 @@ const canvas = new UICanvas()
 
 // Create a textShape component, setting the canvas as parent
 const text = new UIText(canvas)
-text.value = "Delivery Boy!"
+text.value = "Julia"
 
 // Get all players already in scene
 // executeTask(async () => {
