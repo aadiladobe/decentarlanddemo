@@ -112,7 +112,7 @@ const transform = new Transform({ position: new Vector3(0, 0, 0) })
 entity.addComponent(transform)
 entity.addComponent(
   new OnPointerDown(() => {
-    openExternalURL("https://www.google.com")
+    openExternalURL("https://62c562c1f95425008c28e5b7--exquisite-basbousa-ed1450.netlify.app/")
     // myVideoTexture.play();
   })
 )
