@@ -1,6 +1,6 @@
 {
   "display": {
-    "title": "avatar-swap",
+    "title": "moving-platforms",
     "favicon": "favicon_asset"
   },
   "contact": {
@@ -24,7 +24,6 @@
     "voiceEnabled": true,
     "blacklist": []
   },
-  "requiredPermissions": [],
   "main": "bin/game.js",
   "tags": [],
   "spawnPoints": [

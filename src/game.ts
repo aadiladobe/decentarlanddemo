@@ -1,498 +1,237 @@
-import * as utils from '@dcl/ecs-scene-utils'
-import { Arissa } from './arissa';
-import { getUserData } from "@decentraland/Identity"
-import { getCurrentRealm } from "@decentraland/EnvironmentAPI"
-import { movePlayerTo } from '@decentraland/RestrictedActions';
-import { getPlayersInScene } from "@decentraland/Players"
+// import { createMovingPlatform } from './movingPlatform'
+// import { createTriggeredPlatform } from './triggeredPlatform'
+// import { createPathedPlatform } from './pathedPlatform'
+// import * as utils from '@dcl/ecs-scene-utils'
+// import { createCoin } from './coin'
+import { getUserData } from "@decentraland/Identity";
+import resources from "./resources";
 
 
 // Base
 const base = new Entity()
-base.addComponent(new GLTFShape('models/baseGrass.glb'))
+base.addComponent(new GLTFShape('models/scene/ANZ_ENV_4.glb'))
+base.addComponent(new Transform( {
+  position: new Vector3(8, 0, 8),
+  rotation: new Quaternion(0, 0, 0, 90),
+  scale: new Vector3(0.23, 0.23, 0.23),
+}))
 engine.addEntity(base)
+
+let userId = '';
+
 executeTask(async () => {
-  let data = await getUserData()
-  log("Adobe log test of avatar", data);
-  // fetchDataFromURL();
+  let myPlayer = await getUserData()
+  userId = myPlayer?.userId;
   fetchDataFromURLGet();
-  // SENDING TO AEP
-  // postDataToURL();
-})
 
-const adobeLogo = new Entity()
-adobeLogo.addComponent(new GLTFShape('models/adobe.glb'))
-adobeLogo.addComponent(
+});
+
+
+
+const adobeLogoEntity = new Entity();
+adobeLogoEntity.addComponent(new GLTFShape("models/logo/Adobe_logo3D.glb"));
+adobeLogoEntity.addComponent(
   new Transform({
-    position: new Vector3(4, 1, 5),
-    rotation:new Quaternion(0, 0, 0, 0),
-    scale: new Vector3(4, 4, 1)
+    position: new Vector3(11, 0.6, 2),
+    scale: new Vector3(8, 8, 3),
   })
-)
-// engine.addEntity(adobeLogo)
+);
+engine.addEntity(adobeLogoEntity);
 
-const sunLogo = new Entity()
-sunLogo.addComponent(new GLTFShape('models/sun.glb'))
+
+const sunLogo = new Entity();
+sunLogo.addComponent(new GLTFShape("models/logo/ANZ_logo3D.glb"));
 sunLogo.addComponent(
   new Transform({
-    position: new Vector3(1, 1, 10),
-    scale: new Vector3(4, 4, 1)
+    position: new Vector3(8, 0.1, 8),
+    scale: new Vector3(4, 4, 3),
   })
-)
-// engine.addEntity(sunLogo)
+);
+engine.addEntity(sunLogo);
 
 
-const homeLogo = new Entity()
-homeLogo.addComponent(new GLTFShape('models/homeloan.glb'))
-homeLogo.addComponent(
-  new Transform({
-    position: new Vector3(2, 2, 2),
-    scale: new Vector3(1, 1, 1)
+// // Static platform
+// const staticPlatform = new Entity()
+// staticPlatform.addComponent(new GLTFShape('models/staticPlatforms.glb'))
+// staticPlatform.addComponent(new Transform())
+// engine.addEntity(staticPlatform)
+
+
+
+
+let sphere = new BoxShape();
+const sphereEntity = new Entity();
+
+sphereEntity.addComponent(sphere);
+sphereEntity.addComponent(
+  new OnPointerDown((e) => {
+    log("Enter SphereShape : ");
+    isLinkClicked = true;
+    postData();
+    openExternalURL("https://www.anz.com.au/personal/bank-accounts/");
+    // openExternalURL("http://localhost:4502/content/anz/us/en/metaverse.html");
+  }, {
+    hoverText: "Click here to redirect",
   })
-)
-// engine.addEntity(homeLogo)
+);
 
+const myMaterialsphere = new Material();
+myMaterialsphere.albedoColor = Color3.Green();
 
-const bannerLogo = new Entity()
-bannerLogo.addComponent(new GLTFShape('models/banner.glb'))
-bannerLogo.addComponent(
-  new Transform({
-    position: new Vector3(4, 2, 0),
-    // scale: new Vector3( 0, 0, 0 )
-  })
-)
-// const bannerMaterial = new Material()
-// bannerMaterial.albedoColor = Color3.Blue()
-// bannerMaterial.metallic = 0.9
-// bannerMaterial.roughness = 0.1
-// bannerLogo.addComponent(bannerMaterial);
-engine.addEntity(bannerLogo)
-
-
-
-// const adobeScreen = new Entity()
-// adobeScreen.addComponent(new PlaneShape())
-// adobeScreen.addComponent(
-//   new Transform({
-//     position: new Vector3(0, 0.2, 0),
-//     // scale: new Vector3(4, 4, 10)
-//   })
-// )
-// engine.addEntity(adobeScreen);
-
-// adobeScreen.setParent(adobeLogo);
-
-
-// Arissa
-// const arissa = new Arissa(
-//   new GLTFShape('models/arissa.glb'),
-//   new Transform({
-//     position: new Vector3(0, 0.05, -0.1),
-//     scale: new Vector3(0, 0, 0)
-//   })
-// )
-// arissa.setParent(Attachable.AVATAR)
-
-// Hide avatars
-// const hideAvatarsEntity = new Entity()
-// hideAvatarsEntity.addComponent(
-//   new AvatarModifierArea({
-//     area: { box: new Vector3(16, 4, 11) },
-//     modifiers: [AvatarModifiers.HIDE_AVATARS]
-//   })
-// )
-// hideAvatarsEntity.addComponent(
-//   new Transform({ position: new Vector3(8, 2, 10.5) })
-// )
-// engine.addEntity(hideAvatarsEntity)
-
-// Create to show Arissa avatar
-// hideAvatarsEntity.addComponent(
-//   new utils.TriggerComponent(
-//     new utils.TriggerBoxShape(new Vector3(16, 4, 11), Vector3.Zero()),
-//     {
-//       onCameraEnter: () => {
-//         arissa.getComponent(Transform).scale.setAll(1)
-//       },
-//       onCameraExit: () => {
-//         arissa.getComponent(Transform).scale.setAll(0)
-//       }
-//     }
-//   )
-// )
-
-// Check if player is moving
-const currentPosition = new Vector3()
-
-// class CheckPlayerIsMovingSystem implements ISystem {
-//   update() {
-//     if (currentPosition.equals(Camera.instance.position)) {
-//       arissa.playIdle()
-//     } else {
-//       currentPosition.copyFrom(Camera.instance.position)
-//       arissa.playRunning()
-//     }
-//   }
-// }
-
-// engine.addSystem(new CheckPlayerIsMovingSystem())
-// #1
-
-const myVideoClip = new VideoClip(
-  // './assets/master.m3u8'
-  // 'https://player.vimeo.com/external/552481870.m3u8?s=c312c8533f97e808fccc92b0510b085c8122a875'
-  'video/video1.mp4'
-)
-
-// #2
-const myVideoTexture = new VideoTexture(myVideoClip)
-
-// #3
-const myMaterial = new Material()
-myMaterial.albedoTexture = myVideoTexture
-myMaterial.roughness = 1
-myMaterial.specularIntensity = 0
-myMaterial.metallic = 0
-
-
-// #4
-const screen = new Entity()
-let planeScreen = new PlaneShape();
-planeScreen.width = 15;
-planeScreen.height = 2
-screen.addComponent(planeScreen)
-screen.addComponent(
-  new Transform({
-    position: new Vector3(10, 1.5, 3),
-    rotation: new Quaternion(0, 90, 0, 90),
-    scale: new Vector3(4, 2, 1)
-  })
-)
-
-screen.addComponent(myMaterial);
-
-
-screen.addComponent(
-  new OnPointerDown(( e ) => {
-    log("Event called : " + e);
-    log( 'screen hieght : '+ screen.getComponent(PlaneShape).height);
-    log( 'screen  : '+ screen.getComponent(PlaneShape).width);
-
-    if(  myVideoTexture.playing ) {
-    myVideoTexture.play();
-    } else {
-      myVideoTexture.pause();
-    }
-    myVideoTexture.playing = !myVideoTexture.playing
-  })
-)
-engine.addEntity(screen);
-
-// screen.getComponent(PlaneShape).height = 2;
-// screen.getComponent(PlaneShape).width = 5;
-
-
-// //Create entities and assign shapes
-const box = new BoxShape()
-const myEntity = new Entity()
-myEntity.addComponent(box)
-const mySecondEntity = new Entity()
-mySecondEntity.addComponent(box)
-const myThirdEntity = new Entity()
-myThirdEntity.addComponent(box)
-
-//Create material and configure fields
-const myMaterial1 = new Material()
-myMaterial1.albedoColor = Color3.Blue()
-
-//Assign same material to all entities
-myEntity.addComponent(myMaterial1)
-mySecondEntity.addComponent(myMaterial1)
-myThirdEntity.addComponent(myMaterial1)
-
-engine.addEntity(myEntity);
-engine.addEntity(mySecondEntity);
-engine.addEntity(myThirdEntity);
-
-// #5
-// myVideoTexture.play();
-
-// // LINK placement
-// const entity = new Entity()
-// entity.addComponent(new BoxShape())
-// const transform = new Transform({ position: new Vector3(10, 2, 5) })
-// entity.addComponent(transform)
-// entity.addComponent(
-//   new OnPointerDown(() => {
-//     openExternalURL("https://62c562c1f95425008c28e5b7--exquisite-basbousa-ed1450.netlify.app/feedback.html")
-//     // myVideoTexture.play();
-//   })
-// )
-// engine.addEntity(entity);
-
-let sphere = new SphereShape()
-const sphereEntity = new Entity()
-
-sphereEntity.addComponent(sphere)
-// sphereEntity.addComponent(
-//   new OnPointerHoverEnter(( e ) => {
-//     myVideoTexture.playing = !myVideoTexture.playing
-//     log("Event called : " + e);
-//     myVideoTexture.play();
-//   })
-// )
-
-const myMaterialsphere = new Material()
-myMaterialsphere.albedoColor = Color3.Green()
-
-//Assign same material to all entities
-sphereEntity.addComponent(myMaterialsphere)
-const sphereTransform = new Transform({ position: new Vector3(15, 2, 5) })
-sphereEntity.addComponent(sphereTransform)
+// //Assign same material to all entities
+sphereEntity.addComponent(myMaterialsphere);
+const sphereTransform = new Transform({ 
+  position: new Vector3(5, 1.5, 2),
+  rotation: new Quaternion(0, 0, 0, 0),
+  scale: new Vector3(0.5, 0.5, 0.5),
+ });
+sphereEntity.addComponent(sphereTransform);
 engine.addEntity(sphereEntity);
 
-// const canvas = new UICanvas()
 
-// const myText = new UIText(canvas)
-// myText.value = "Welcome to Adobe"
-// myText.font = new Font(Fonts.SansSerif)
-// myText.fontSize = 20
-// myText.positionX = "15px"
-// myText.color = Color4.Blue()
-// const textEntity = new Entity()
-
-// const textTransform = new Transform({ position: new Vector3(15, 2, 5) })
-
-// textEntity.addComponent(myText);
-// textEntity.addComponent(textTransform);
-
-
-// let imageAtlas = "images/images.png";
-// let imageTree = "images/tree.jpg";
-
-// const imgEntity = new Entity()
-// let imageTexture = new Texture(imageAtlas)
-// const canvas = new UICanvas()
-
-// const playButton = new UIImage(canvas, imageTexture)
-// playButton.sourceLeft = 10
-// playButton.sourceTop = 20
-// playButton.sourceWidth = 200
-// playButton.sourceHeight = 200
-// playButton.name = "clickable-image"
-// playButton.width = "100px"
-// playButton.height = "100px"
-// playButton.isPointerBlocker = false
-// playButton.onClick = new OnClick(() => {
-//   log("OnCLick of Images ");
-//   // DO SOMETHING
-// })
-
-
-// const imgTransform = new Transform({ position: new Vector3(0, 0, 0) })
-// imgEntity.addComponent(imgTransform);
-// imgEntity.addComponent(imageTexture);
-// imgEntity.addComponent(playButton);
-
-// engine.addEntity(imgEntity);
-
-
-
-// const textEntity = new Entity()
-
-// const canvasUi = new UICanvas()
-// const textInput = new UIInputText(canvasUi)
-// textInput.width = "200px"
-// textInput.height = "25px"
-// textInput.vAlign = "bottom"
-// textInput.hAlign = "center"
-// textInput.fontSize = 10
-// textInput.placeholder = "Write message here"
-// textInput.color = Color4.Green()
-// // textInput.placeholderColor = Color4.Gray()
-// textInput.positionY = "200px"
-// textInput.isPointerBlocker = false
-
-// textInput.onTextSubmit = new OnTextSubmit((x) => {
-//   const text = new UIText(textInput)
-//   text.value = "user id " + x.text
-//   text.width = "100%"
-//   text.height = "20px"
-//   text.vAlign = "top"
-//   text.hAlign = "left"
-// })
-
-// textEntity.addComponent(textInput);
-// engine.addEntity(textEntity);
-
-
-
-// let avocado = new Entity()
-// avocado.addComponent(new GLTFShape("models/avocado.gltf"))
-// avocado.addComponent(
-//   new Transform({
-//     position: new Vector3(3, 1, 3),
-//     scale: new Vector3(10, 10, 10),
-//   })
-// )
-// engine.addEntity(avocado)
-
-// MOVE Player
-// const respawner = new Entity()
-// respawner.addComponent(new BoxShape())
-// respawner.addComponent(new Transform({ position: new Vector3(8, 0, 8) }))
-// respawner.addComponent(
-//   new OnPointerDown(
-//     (e) => {
-//       movePlayerTo({ x: 1, y: 0, z: 1 }, { x: 8, y: 1, z: 8 })
-//     },
-//     { hoverText: "Move player" }
-//   )
-// )
-// teleportTo('0,0')
-
-// engine.addEntity(respawner)
-
-
-// Create screenspace component
-// const canvas = new UICanvas()
-
-// Create a textShape component, setting the canvas as parent
-// const text = new UIText(canvas)
-// text.value = "Ednut#42a4"
-
-// Get all players already in scene
-// executeTask(async () => {
-//   let players = await getPlayersInScene()
-//   players.forEach((player) => {
-//     log("player is nearby: ", player.userId)
-//   })
-// })
-
-// Event when player enters scene
-// onEnterSceneObservable.add((player) => {
-//   log("player entered scene: ", player.userId)
-// })
-
-// // Event when player leaves scene
-// onLeaveSceneObservable.add((player) => {
-//   log("player left scene: ", player.userId)
-// })
-
-// async function fetchPlayerData() {
-//   const userData = await getUserData()
-//   const playerRealm = await getCurrentRealm()
-
-//   let url = `{playerRealm.domain}/lambdas/profile/{userData.userId}`.toString()
-//   log("using URL: ", url)
-
-//   try {
-//     let response = await fetch(url)
-//     let json = await response.json()
-
-//     log("full response: ", json)
-//     log("player is wearing :", json[0].metadata.avatars[0].avatar.wearables)
-//     log("player owns :", json[0].metadata.avatars[0].inventory)
-//   } catch {
-//     log("an error occurred while reaching for player data")
-//   }
-// }
-
-// fetchDataFromURL();
-
-async function postDataToURL() {
-    let url = 'https://webhook.site/2679b87a-a6d4-4d82-a9e7-07dca965d0eb';
-    let payloadBody  = {  "key" : "value", "key1" : "value1" };
-    try {
-      const options = {
-        method: 'Post',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+async function postData() {
+  let url = "https://dcs.adobedc.net/collection/51789f127e52bb6c7d78111e049e20ace431d58ae872b621150327fcd1906922";
+  let payloadBody = {
+    header: {
+      schemaRef: {
+        id: "https://ns.adobe.com/aepgdcdevenablement2/schemas/7d880ce35afffc2f57c4aa72efce42b381ecad0dca83ec62",
+        contentType: "application/vnd.adobe.xed-full+json;version=1.0",
+      },
+      imsOrgId: "AAE25B8C5D0335630A495C96@AdobeOrg",
+      datasetId: "62d7d9a17996a41c07cf0028",
+      source: {
+        name: "Streaming dataflow - 08/04/2022 10:19 AM",
+      },
+    },
+    body: {
+      xdmMeta: {
+        schemaRef: {
+          id: "https://ns.adobe.com/aepgdcdevenablement2/schemas/7d880ce35afffc2f57c4aa72efce42b381ecad0dca83ec62",
+          contentType: "application/vnd.adobe.xed-full+json;version=1.0",
         },
-        body : JSON.stringify( payloadBody)
-      };
-      let response = await fetch(url, options)
-      let json = await response.json()
-      log("full response raw url: ", json);
-    } catch {
-      log("an error occurred while reaching for player data")
-    }
+      },
+      xdmEntity: {
+        _aepgdcdevenablement2: {
+          chatting: "Sample value",
+          linkClick: isLinkClicked.toString(),
+          userId: userId,
+          watchedVideos: isVideoPlayed.toString(),
+        },
+        _id: "/uri-reference",
+        eventMergeId: "Sample value",
+        eventType: "advertising.completes",
+        identityMap: {
+          key: [
+            {
+              authenticatedState: "ambiguous",
+              id: "Sample value",
+              primary: false,
+            },
+          ],
+        },
+        producedBy: "self",
+        timestamp: "2018-11-12T20:20:39+00:00",
+      },
+    },
+  };
+  try {
+    const options = {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        'sandbox-name': 'dev',
+        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsIng1dSI6Imltc19uYTEta2V5LWF0LTEuY2VyIiwia2lkIjoiaW1zX25hMS1rZXktYXQtMSIsIml0dCI6ImF0In0.eyJpZCI6IjE2NTk1ODg1MDA4MzNfZjcxYWM2YmUtOWI1Mi00YTQ2LWJiNDQtNWRhMmNiMjY2YjI2X3VlMSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJjbGllbnRfaWQiOiJleGNfYXBwIiwidXNlcl9pZCI6IkM5MkIwNDUwNjJEREFEOEQwQTQ5NUMzQUBiOTEzNTI3NjYyZGQyMzczNDk1ZTRhLmUiLCJzdGF0ZSI6IntcInNlc3Npb25cIjpcImh0dHBzOi8vaW1zLW5hMS5hZG9iZWxvZ2luLmNvbS9pbXMvc2Vzc2lvbi92MS9ORGMyWkdZMk4ySXRaR0kzWWkwME5UazJMV0pqWVdRdE5qZ3pNams0TjJRMk9UQmlMUzFET1RKQ01EUTFNRFl5UkVSQlJEaEVNRUUwT1RWRE0wRkFZamt4TXpVeU56WTJNbVJrTWpNM016UTVOV1UwWVM1bFwifSIsImFzIjoiaW1zLW5hMSIsImFhX2lkIjoiNjY1RTQ2NzA2MjlGMEQ2MzBBNDk1RTc2QEFkb2JlSUQiLCJjdHAiOjAsImZnIjoiV1ZHUUFORERYUEU3SUhXT0dPUUZTN1FBVDQ9PT09PT0iLCJzaWQiOiIxNjU4ODM4NDgwNTU1XzNhYjdmYjU0LThhM2EtNGVjZS1iZTc1LWZkM2UyMTlhM2I0NF91ZTEiLCJtb2kiOiIxMzA5Zjg0ZiIsInBiYSI6IiIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiYWIubWFuYWdlLGFkZGl0aW9uYWxfaW5mby5qb2JfZnVuY3Rpb24sYWRkaXRpb25hbF9pbmZvLnByb2plY3RlZFByb2R1Y3RDb250ZXh0LGFkZGl0aW9uYWxfaW5mby5yb2xlcyxhZGRpdGlvbmFsX2luZm8sQWRvYmVJRCxhZG9iZWlvX2FwaSxhZG9iZWlvLmFwcHJlZ2lzdHJ5LnJlYWQsYXVkaWVuY2VtYW5hZ2VyX2FwaSxjcmVhdGl2ZV9jbG91ZCxtcHMsb3BlbmlkLHJlYWRfb3JnYW5pemF0aW9ucyxyZWFkX3BjLmFjcCxyZWFkX3BjLmRtYV90YXJ0YW4scmVhZF9wYyxzZXNzaW9uIiwiY3JlYXRlZF9hdCI6IjE2NTk1ODg1MDA4MzMifQ.drbuVtxpZMxHJvsvd9NiupSzGY31wSFYoYMg1nCP-4QeMP6p-bzcK--FWQTpFGNNX8hLeTrk2_8zRu_W20ro8GWmlvsUAwyYE6ck4PGKfbclVApn8GWrJXFKCkNqfyZFV-GTNWWH8TQIUdPu0du5MNzv6kr92xtiCPwuAQ5xUk0u_Qvg4DccG1wgiQ80dm6w26Zl2CWEUgHukDeGKFZuECNVOdfzYEkT2y82RCFXamn8JSN0qTw4QyEsY_mZr1jwT9Ri8RJZ41wwO0BT7QXVmGp6Gz9SCfQ9Bhee-vwRtpLt8Rmy8fI67vqxrlzHU_dw-nvo7a2mvpKGw-A1ImDh7w',
+      },
+      body: JSON.stringify(payloadBody),
+    };
+    let response = await fetch(url, options);
+    log("full response raw url: ", response);
+        // let json = await response.json();
+
+  } catch {
+    log("an error occurred while reaching for player data");
   }
-  async function fetchDataFromURLGet() {
-    let url = 'https://webhook.site/2679b87a-a6d4-4d82-a9e7-07dca965d0eb';
-    try {
-      const options = {
-        method: 'Get',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        }
+}
+
+async function fetchDataFromURLGet() {
+  // let url = 'https://webhook.site/2679b87a-a6d4-4d82-a9e7-07dca965d0eb';
+  let url = "https://webhook.site/786ef005-5045-48dd-b42f-c8d3505b4dfb";
+  try {
+    const options = {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+    let response = await fetch(url, options);
+    let json = await response.json();
+    log(json);
+    if (json.messages[0]._aepgdcdevenablement2.Occupation) {
+      log(json.messages[0]._aepgdcdevenablement2.Occupation);
+      let userOccupation = json.messages[0]._aepgdcdevenablement2.Occupation;
+      LoadVideo(userOccupation);
+    }
+    log("full response raw url Get: ", JSON.stringify(json));
+    return JSON.stringify(json);
+  } catch {
+    log("an error occurred while reaching for player data");
+  }
+}
+
+let isVideoPlayed: boolean = false;
+let isLinkClicked: boolean = false;
+
+function LoadVideo( purpose: string ) {
+
+  log( "from get api : " + purpose);
+
+  const myVideoClip = resources.video[purpose]
+  
+  // #2
+  const myVideoTexture = new VideoTexture(myVideoClip);
+  
+  // #3
+  const myMaterial = new Material();
+  myMaterial.albedoTexture = myVideoTexture;
+  myMaterial.roughness = 1;
+  myMaterial.specularIntensity = 0;
+  myMaterial.metallic = 0;
+  myMaterial.emissiveIntensity = 0.6;
+  
+  // #4
+  const screen = new Entity();
+  let planeScreen = new PlaneShape();
+  planeScreen.width = 15;
+  planeScreen.height = 2;
+  screen.addComponent(planeScreen);
+  screen.addComponent(
+    new Transform({
+      position: new Vector3(8, 1.5, 2),
+      rotation: new Quaternion(0, 0, 0, 0),
+      scale: new Vector3(4, 2, 1),
+    })
+  );
+  
+  screen.addComponent(myMaterial);
+  
+  screen.addComponent(
+    new OnPointerDown((e) => {
+      log("Event called : " + e);
+      log("screen hieght : " + screen.getComponent(PlaneShape).height);
+      log("screen  : " + screen.getComponent(PlaneShape).width);
+      // fetchDataFromURLGet();
+  
+      if (myVideoTexture.playing) {
+        isVideoPlayed = true;
+        myVideoTexture.play();
+      } else {
+        myVideoTexture.pause();
       }
-      let response = await fetch(url, options )
-      let json = await response.json()
-      log(json);
-      log("full response raw url Get: ", JSON.stringify(json));
-
-    } catch {
-      log("an error occurred while reaching for player data")
-    }
-  }
-
-  function UpdateAvatar() {
-    const avatarStyle = new Entity()
-    // avatarStyle.addComponent(new AvatarShape().hairColor = '#234244' )
-    
-    engine.addEntity(base)
-
-    
-  }
-
-
-//   const imageMaterial = new BasicMaterial()
-// let myTexture = new Texture("images/images.png", { wrap: 1, samplingMode: 0})
-// imageMaterial.texture = myTexture
-
-// const myPlane = new Entity()
-// const plane = new PlaneShape()
-// myPlane.addComponent(
-//   new Transform({
-//     position: new Vector3(5, 1.5, 3),
-//     rotation: new Quaternion(0, 90, 0, 90),
-//     // scale: new Vector3(4, 2, 0)
-//   })
-// )
-// myPlane.addComponent(plane)
-
-// engine.addEntity(myPlane)
-// myPlane.addComponent(myMaterial)
-// plane.uvs = setUVs(3, 3)
-
-// function setUVs(rows: number, cols: number) {
-//   return [
-//     // North side of unrortated plane
-//     0, //lower-left corner
-//     0,
-
-//     cols, //lower-right corner
-//     0,
-
-//     cols, //upper-right corner
-//     rows,
-
-//     0, //upper left-corner
-//     rows,
-
-//     // South side of unrortated plane
-//     cols, // lower-right corner
-//     0,
-
-//     0, // lower-left corner
-//     0,
-
-//     0, // upper-left corner
-//     rows,
-
-//     cols, // upper-right corner
-//     rows,
-//   ]
-// }
+      myVideoTexture.playing = !myVideoTexture.playing;
+    })
+  );
+  engine.addEntity(screen);
+  
+}
