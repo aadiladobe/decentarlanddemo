@@ -68,7 +68,7 @@ sphereEntity.addComponent(
     log("Enter SphereShape : ");
     isLinkClicked = true;
     postData();
-    openExternalURL("https://www.anz.com.au/personal/bank-accounts/");
+    openExternalURL("http://ec2-3-249-23-215.eu-west-1.compute.amazonaws.com:4502/content/anz/us/en/metaverse.html?InterestedInLoan=Yes");
     // openExternalURL("http://localhost:4502/content/anz/us/en/metaverse.html");
   }, {
     hoverText: "Click here to redirect",
