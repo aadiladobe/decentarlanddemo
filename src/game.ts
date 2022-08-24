@@ -156,7 +156,7 @@ async function postData() {
 
 async function fetchDataFromURLGet() {
   // let url = 'https://webhook.site/2679b87a-a6d4-4d82-a9e7-07dca965d0eb';
-  let url = "https://webhook.site/786ef005-5045-48dd-b42f-c8d3505b4dfb";
+  let url = "https://webhook.site/378902b7-93b6-48b1-834b-5d7c11c45e65";
   try {
     const options = {
       method: "Get",
