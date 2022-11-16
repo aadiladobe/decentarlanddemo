@@ -1,0 +1,425 @@
+{
+    "asset": {
+        "copyright": "2020 (c) Adobe Inc.",
+        "generator": "Adobe Dimension - b6c6386da714573e1c60e92e900169531bbd057d",
+        "version": "2.0"
+    },
+    "accessors": [
+        {
+            "bufferView": 0,
+            "componentType": 5126,
+            "count": 538,
+            "type": "VEC3",
+            "max": [
+                1.5199602842330933,
+                0.6981120705604553,
+                0.34905603528022768
+            ],
+            "min": [
+                -1.519960641860962,
+                0.0,
+                -0.3490560054779053
+            ]
+        },
+        {
+            "bufferView": 1,
+            "componentType": 5126,
+            "count": 538,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "componentType": 5126,
+            "count": 538,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 3,
+            "componentType": 5125,
+            "count": 1818,
+            "type": "SCALAR",
+            "max": [
+                537.0
+            ],
+            "min": [
+                0.0
+            ]
+        },
+        {
+            "bufferView": 4,
+            "componentType": 5126,
+            "count": 440,
+            "type": "VEC3",
+            "max": [
+                0.509939968585968,
+                1.019879698753357,
+                0.509939968585968
+            ],
+            "min": [
+                -0.509939968585968,
+                0.0,
+                -0.509939968585968
+            ]
+        },
+        {
+            "bufferView": 5,
+            "componentType": 5126,
+            "count": 440,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 6,
+            "componentType": 5126,
+            "count": 440,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 7,
+            "componentType": 5125,
+            "count": 1722,
+            "type": "SCALAR",
+            "max": [
+                439.0
+            ],
+            "min": [
+                0.0
+            ]
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 6456,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 6456,
+            "byteLength": 6456,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 12912,
+            "byteLength": 4304,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 17216,
+            "byteLength": 7272,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 24488,
+            "byteLength": 5280,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 29768,
+            "byteLength": 5280,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 35048,
+            "byteLength": 3520,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 38568,
+            "byteLength": 6888,
+            "target": 34963
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 45456,
+            "uri": "Luma_logo_binary.bin"
+        }
+    ],
+    "cameras": [
+        {
+            "perspective": {
+                "znear": 0.000011873518815264106,
+                "yfov": 0.6024156808853149,
+                "zfar": 2.0,
+                "aspectRatio": 1.3333333730697632
+            },
+            "type": "perspective",
+            "name": "render_camera"
+        }
+    ],
+    "materials": [
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.03310476243495941,
+                    0.03310476243495941,
+                    0.03310476243495941,
+                    1.0
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.028999999165534974
+            },
+            "name": "Plastic",
+            "doubleSided": true
+        },
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    1.0,
+                    0.7230552434921265,
+                    0.007499031722545624,
+                    0.25
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.0
+            },
+            "alphaMode": "BLEND",
+            "name": "Glass 2",
+            "doubleSided": true
+        },
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.019382361322641374,
+                    0.39675530791282656,
+                    0.7454043626785278,
+                    0.25
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.0
+            },
+            "alphaMode": "BLEND",
+            "name": "Glass 3",
+            "doubleSided": true
+        },
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.25818291306495669,
+                    0.5583404898643494,
+                    0.04970656335353851,
+                    0.25
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.0
+            },
+            "alphaMode": "BLEND",
+            "name": "Glass",
+            "doubleSided": true
+        },
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.8962693810462952,
+                    0.19120167195796967,
+                    0.04373502731323242,
+                    0.25
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.0
+            },
+            "alphaMode": "BLEND",
+            "name": "Glass 4",
+            "doubleSided": true
+        }
+    ],
+    "meshes": [
+        {
+            "name": "Shape 2",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    },
+                    "indices": 3,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "Shape 3 copy",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 5,
+                        "POSITION": 4,
+                        "TEXCOORD_0": 6
+                    },
+                    "indices": 7,
+                    "material": 1
+                }
+            ]
+        },
+        {
+            "name": "Shape 3 copy",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 4,
+                        "NORMAL": 5,
+                        "TEXCOORD_0": 6
+                    },
+                    "indices": 7,
+                    "material": 2
+                }
+            ]
+        },
+        {
+            "name": "Shape 3 copy",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 5,
+                        "POSITION": 4,
+                        "TEXCOORD_0": 6
+                    },
+                    "indices": 7,
+                    "material": 3
+                }
+            ]
+        },
+        {
+            "name": "Shape 3 copy",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 4,
+                        "NORMAL": 5,
+                        "TEXCOORD_0": 6
+                    },
+                    "indices": 7,
+                    "material": 4
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "translation": [
+                -0.40093615651130679,
+                1.526870846748352,
+                2.656527280807495
+            ],
+            "rotation": [
+                -0.037439022213220599,
+                -0.29335352778434756,
+                -0.011497934348881245,
+                0.9552014470100403
+            ],
+            "camera": 0,
+            "name": "render_camera_n3d"
+        },
+        {
+            "children": [
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "translation": [
+                1.3391703367233277,
+                0.8280512690544128,
+                3.732422015900738e-8
+            ],
+            "scale": [
+                0.11082493513822556,
+                0.11082493513822556,
+                0.021567896008491517
+            ],
+            "name": "Group"
+        },
+        {
+            "translation": [
+                2.547006130218506,
+                1.3683117628097535,
+                0.0
+            ],
+            "mesh": 0,
+            "name": "Text"
+        },
+        {
+            "translation": [
+                -0.029041746631264688,
+                1.4411981105804444,
+                0.003329366911202669
+            ],
+            "rotation": [
+                -0.7071056962013245,
+                0.7071056962013245,
+                -0.001241416553966701,
+                0.001241416553966701
+            ],
+            "scale": [
+                1.0000005960464478,
+                1.000001072883606,
+                1.0379632711410523
+            ],
+            "mesh": 1,
+            "name": "Y"
+        },
+        {
+            "translation": [
+                -0.5431405305862427,
+                1.467308521270752,
+                0.001524762948974967
+            ],
+            "rotation": [
+                0.0,
+                0.9999985694885254,
+                0.0,
+                0.0016914161387830973
+            ],
+            "mesh": 2,
+            "name": "B"
+        },
+        {
+            "translation": [
+                0.0,
+                1.467308521270752,
+                0.0
+            ],
+            "mesh": 3,
+            "name": "G"
+        },
+        {
+            "translation": [
+                -0.5141015648841858,
+                1.4411981105804444,
+                -0.00005842055179527961
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                -0.7071067690849304,
+                0.7071067690849304
+            ],
+            "scale": [
+                1.0000005960464478,
+                1.0000005960464478,
+                1.0379637479782105
+            ],
+            "mesh": 4,
+            "name": "O"
+        }
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0,
+                1
+            ],
+            "name": "scene"
+        }
+    ],
+    "scene": 0
+}
