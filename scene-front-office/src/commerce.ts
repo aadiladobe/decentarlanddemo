@@ -3,27 +3,6 @@ const params = 'searchCriteria[filterGroups][0][filters][0][field]=code&searchCr
 
 export default {
     getCoupon: function(){
-        // executeTask(async()=>{
-        //   const options = {
-        //     method: "GET",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Authorization": "Bearer uc21il9aqm3xpw6m0z2dgqvv3c92aa7y"
-        //     }
-        //   };
-
-        //   try {
-        //       let response = await fetch(`${DOMAINS.commerce}${ENDPOINTS.coupon}?${params}`, options)
-        //       let json = await response.json()
-        //       log(json)
-        //       return json;
-             
-        //   } catch {
-        //       log("failed to reach URL")
-        //   }
-        // });
-
         const response =  {
           "items": [
               {
