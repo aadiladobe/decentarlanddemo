@@ -41,7 +41,7 @@ engine.addEntity(adobeLogoEntity);
 
 
 const sunLogo = new Entity();
-sunLogo.addComponent(new GLTFShape("models/logo/Luma_logo.glb"));
+sunLogo.addComponent(new GLTFShape("models/logo/ANZ_logo3D.glb"));
 sunLogo.addComponent(
   new Transform({
     position: new Vector3(8, 0.1, 8),
@@ -50,17 +50,6 @@ sunLogo.addComponent(
 );
 engine.addEntity(sunLogo);
 
-const frameforButton = new Entity();
-frameforButton.addComponent(new GLTFShape("models/logo/frame.png"));
-frameforButton.addComponent(
-  new Transform({
-    position: new Vector3(8, 0.1, 8),
-    scale: new Vector3(4, 4, 3),
-  })
-);
-engine.addEntity(frameforButton);
-
-
 
 // // Static platform
 // const staticPlatform = new Entity()
@@ -68,13 +57,15 @@ engine.addEntity(frameforButton);
 // staticPlatform.addComponent(new Transform())
 // engine.addEntity(staticPlatform)
 
+let sphere = new BoxShape();
 const sphereEntity = new Entity();
+sphereEntity.addComponent(sphere);
+// const textEntity = new Entity()
 const getCoupon = new TextShape("Get Coupon")
 getCoupon.fontSize = 10;
 getCoupon.color = Color3.Blue();
 getCoupon.font = new Font(Fonts.SansSerif)
 sphereEntity.addComponent(getCoupon);
-
 let count = 0;
 
 sphereEntity.addComponent(
@@ -89,7 +80,7 @@ sphereEntity.addComponent(
 
       const textEntity = new Entity()
       const couponCodeText = new TextShape(couponCode)
-      couponCodeText.fontSize = 10
+      couponCodeText.fontSize = 8
       couponCodeText.color = Color3.Blue();
       couponCodeText.font = new Font(Fonts.SansSerif)
       textEntity.addComponent(couponCodeText);
@@ -290,4 +281,3 @@ function LoadVideo( purpose: string ) {
   engine.addEntity(screen);
   
 }
-
