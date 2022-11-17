@@ -10,7 +10,7 @@ import commerce from "./commerce";
 
 // Base
 const base = new Entity()
-base.addComponent(new GLTFShape('models/scene/ANZ_ENV_4.glb'))
+base.addComponent(new GLTFShape('models/scene/meta_V3.glb'))
 base.addComponent(new Transform( {
   position: new Vector3(8, 0, 8),
   rotation: new Quaternion(0, 0, 0, 90),
