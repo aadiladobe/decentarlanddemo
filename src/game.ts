@@ -40,15 +40,15 @@ adobeLogoEntity.addComponent(
 engine.addEntity(adobeLogoEntity);
 
 
-const sunLogo = new Entity();
-sunLogo.addComponent(new GLTFShape("models/logo/ANZ_logo3D.glb"));
-sunLogo.addComponent(
-  new Transform({
-    position: new Vector3(8, 0.1, 8),
-    scale: new Vector3(4, 4, 3),
-  })
-);
-engine.addEntity(sunLogo);
+// const sunLogo = new Entity();
+// sunLogo.addComponent(new GLTFShape("models/logo/ANZ_logo3D.glb"));
+// sunLogo.addComponent(
+//   new Transform({
+//     position: new Vector3(8, 0.1, 8),
+//     scale: new Vector3(4, 4, 3),
+//   })
+// );
+// engine.addEntity(sunLogo);
 
 
 // // Static platform
